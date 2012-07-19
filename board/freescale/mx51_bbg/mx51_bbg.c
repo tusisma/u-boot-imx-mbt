@@ -954,8 +954,10 @@ void setup_splash_image(void)
 
 	s = getenv("splashimage");
 	printf("MBT: setup_splash_image: %s \n",s);
-	if (s != NULL) {
+	if (s != NULL) 
+	{
 		addr = simple_strtoul (s, NULL, 16);
+		printf("MBT: setup_splash_image: fsl_bmp_600x400_size=%d \n",fsl_bmp_600x400_size);
 
 #if defined(CONFIG_ARCH_MMU)
 		addr = ioremap_nocache(iomem_to_phys(addr), fsl_bmp_600x400_size);

@@ -183,11 +183,6 @@
 
 #define	CONFIG_EXTRA_ENV_SETTINGS					\
 		"netdev=eth0\0"						\
-		"splashimage=0x80800000\0"				\
-		"splashimage_mmc_dev=0\0"				\
-		"splashimage_mmc_init_block=0x260\0"			\
-		"splashimage_mmc_blkcnt=0x708\0"			\
-		"splashimage_mmc_blksize=512\0"				\
 		"ethprime=FEC0\0"					\
 		"uboot_addr=0xa0000000\0"				\
 		"uboot=u-boot.bin\0"			\
