@@ -889,7 +889,7 @@ void lcd_enable(void)
 {
 	int ret;
 	unsigned int reg;
-
+	printf("MBT: LCD_Enable\n");
 	/*
 	* hw_rev 2: IPUV3DEX
 	* hw_rev 3: IPUV3M
@@ -953,7 +953,7 @@ void setup_splash_image(void)
 	ulong addr;
 
 	s = getenv("splashimage");
-
+	printf("MBT: setup_splash_image: %s \n",s);
 	if (s != NULL) {
 		addr = simple_strtoul (s, NULL, 16);
 
