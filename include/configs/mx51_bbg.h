@@ -183,14 +183,21 @@
 
 #define	CONFIG_EXTRA_ENV_SETTINGS					\
 		"netdev=eth0\0"						\
+		"splashimage=0x80800000\0"				\
+		"splashimage_mmc_dev=0\0"				\
+		"splashimage_mmc_init_block=0x260\0"			\
+		"splashimage_mmc_blkcnt=0x708\0"			\
+		"splashimage_mmc_blksize=512\0"				\
 		"ethprime=FEC0\0"					\
 		"uboot_addr=0xa0000000\0"				\
 		"uboot=u-boot.bin\0"			\
 		"kernel=uImage\0"				\
+		"bootcmd_mmc=run bootargs_mmc;mmc read 0 ${loadaddr} 0x800 0x1800;bootm\0"	\
+		"bootargs_mmc=setenv bootargs ${bootargs}  ip=dhcp root=/dev/mmcblk0p1 rootfstype=ext3\0"	\
 		"bootargs_base=setenv bootargs console=ttymxc0,115200\0"\
 		"bootargs_nfs=setenv bootargs ${bootargs} root=/dev/nfs "\
 			"ip=dhcp nfsroot=${serverip}:${nfsroot},v3,tcp\0"\
-		"bootcmd=run bootcmd_net\0"				\
+		"bootcmd=run bootcmd_mmc\0"				\
 		"bootcmd_net=run bootargs_base bootargs_nfs; "		\
 			"tftpboot ${loadaddr} ${kernel}; bootm\0"	\
 		"load_uboot=tftpboot ${loadaddr} ${uboot}\0"		\
