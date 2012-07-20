@@ -26,6 +26,7 @@
 
 #include <asm/arch/mx51.h>
 
+#define DEBUG
  /* High Level Configuration Options */
 #define CONFIG_ARMV7		1	/* This is armv7 Cortex-A8 CPU core */
 

@@ -348,7 +348,7 @@ static int bootm_load_os(image_info_t os, ulong *load_end, int boot_progress)
 		puts("OK\n");
 		break;
 	case IH_COMP_GZIP:
-		printf ("   Uncompressing %s ... ", type_name);
+		printf ("   Uncompressing 001 %s ... ", type_name);
 		if (gunzip ((void *)load, unc_len,
 					(uchar *)image_start, &image_len) != 0) {
 			puts ("GUNZIP: uncompress, out-of-mem or overwrite error "
@@ -362,7 +362,7 @@ static int bootm_load_os(image_info_t os, ulong *load_end, int boot_progress)
 		break;
 #ifdef CONFIG_BZIP2
 	case IH_COMP_BZIP2:
-		printf ("   Uncompressing %s ... ", type_name);
+		printf ("   Uncompressing 002 %s ... ", type_name);
 		/*
 		 * If we've got less than 4 MB of malloc() space,
 		 * use slower decompression algorithm which requires
@@ -384,7 +384,7 @@ static int bootm_load_os(image_info_t os, ulong *load_end, int boot_progress)
 #endif /* CONFIG_BZIP2 */
 #ifdef CONFIG_LZMA
 	case IH_COMP_LZMA:
-		printf ("   Uncompressing %s ... ", type_name);
+		printf ("   Uncompressing 003 %s ... ", type_name);
 
 		int ret = lzmaBuffToBuffDecompress(
 			(unsigned char *)load, &unc_len,
@@ -619,7 +619,7 @@ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 	icache_disable();
 	dcache_disable();
 #endif
-
+	printf("MBT: do_bootm(): bootm_load_os()\n");
 	ret = bootm_load_os(images.os, &load_end, 1);
 
 	if (ret < 0) {
@@ -724,7 +724,7 @@ static image_header_t *image_get_kernel (ulong img_addr, int verify)
 	image_print_contents (hdr);
 
 	if (verify) {
-		puts ("   Verifying Checksum ... ");
+		puts ("   MBT: Verifying Checksum ... ");
 		if (!image_check_dcrc (hdr)) {
 			printf ("Bad Data CRC\n");
 			show_boot_progress (-3);
@@ -845,7 +845,7 @@ static void *boot_get_kernel (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[]
 	*os_data = *os_len = 0;
 	switch (genimg_get_format ((void *)img_addr)) {
 	case IMAGE_FORMAT_LEGACY:
-		printf ("## Booting kernel from Legacy Image at %08lx ...\n",
+		printf ("MBT ## Booting kernel from Legacy Image at %08lx ...\n",
 				img_addr);
 		hdr = image_get_kernel (img_addr, images->verify);
 		if (!hdr)
@@ -854,14 +854,17 @@ static void *boot_get_kernel (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[]
 
 		/* get os_data and os_len */
 		switch (image_get_type (hdr)) {
-		case IH_TYPE_KERNEL:
+		case IH_TYPE_KERNEL:			
 			*os_data = image_get_data (hdr);
 			*os_len = image_get_data_size (hdr);
+			printf ("MBT: IH_TYPE_KERNEL: Image Size: %d\n",*os_len);
 			break;
 		case IH_TYPE_MULTI:
 			image_multi_getimg (hdr, 0, os_data, os_len);
+			printf ("MBT: IH_TYPE_MULTI\n");
 			break;
 		case IH_TYPE_STANDALONE:
+			printf ("MBT: IH_TYPE_STANDALONE.\n");
 			if (argc >2) {
 				hdr->ih_load = htonl(simple_strtoul(argv[2], NULL, 16));
 			}
@@ -1149,7 +1152,7 @@ int do_imls (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 				if (!image_check_hcrc (hdr))
 					goto next_sector;
 
-				printf ("Legacy Image at %08lX:\n", (ulong)hdr);
+				printf ("MBT 0x001 Legacy Image at %08lX:\n", (ulong)hdr);
 				image_print_contents (hdr);
 
 				puts ("   Verifying Checksum ... ");
