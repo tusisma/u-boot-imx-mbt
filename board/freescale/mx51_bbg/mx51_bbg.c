@@ -1180,8 +1180,8 @@ typedef struct {
 }hab_result_t;
 
 
-typedef hab_result hab_csf_check_t(uint8_t , uint32_t*);
-typedef hab_result hab_csf_verification_t(uint8_t *, uint32_t);
+typedef hab_result_t hab_csf_check_t(uint8_t , uint32_t*);
+typedef hab_result_t hab_csf_verification_t(uint8_t *, uint32_t);
 
 
 #define HAB_CSF_CHECK (*(unint32_t *) 0x0000008C)
