@@ -1123,6 +1123,8 @@ int board_late_init(void)
 }
 #endif
 
+#pragma thumb
+
 #define HAB_TYPE_HAB_ENGINEERING 	0x01
 #define HAB_TYPE_HAB_PRODUCT 		0x02
 #define HAB_TYPE_HAB_SEC_DISABLED	0x04
