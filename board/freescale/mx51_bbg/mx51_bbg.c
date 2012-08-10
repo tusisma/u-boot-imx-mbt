@@ -1184,10 +1184,10 @@ typedef hab_result_t hab_csf_check_t(uint8_t , uint32_t*);
 typedef hab_result_t hab_csf_verification_t(uint8_t *, uint32_t);
 
 
-#define HAB_CSF_CHECK (*(uint32_t *) 0x0000008C)
+#define HAB_CSF_CHECK (*(uint32_t *) 0x000000A4)
 #define hab_csf_check ((hab_csf_check_t*)HAB_CSF_CHECK)
 
-#define HAB_ASSERT_VERIFICATION (*(uint32_t *) 0x00000090)
+#define HAB_ASSERT_VERIFICATION (*(uint32_t *) 0x000000A8)
 #define hab_csf_verification 	((hab_csf_verification_t*)HAB_ASSERT_VERIFICATION)
 
 int get_hab_status(void);
