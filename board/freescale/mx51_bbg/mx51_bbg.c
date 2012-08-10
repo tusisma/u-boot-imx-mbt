@@ -1220,6 +1220,7 @@ int get_hab_status(void)
 
 	printf("\n\rHAB: Verification: Result Status=0x%08d.\n\r",hab_result.status);
 	printf("HAB: Verification: Result Type=0x%08d.\n\r",hab_result.type);
+	return 0;
 }
 int checkboard(void)
 {
