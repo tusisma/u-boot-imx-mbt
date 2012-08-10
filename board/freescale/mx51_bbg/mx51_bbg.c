@@ -1186,7 +1186,7 @@ typedef hab_result_t hab_csf_check_t(uint8_t , uint32_t*);
 typedef hab_result_t hab_csf_verification_t(uint8_t *, uint32_t);
 
 
-#define HAB_CSF_CHECK (*(uint32_t *) 0x000000A4)
+#define HAB_CSF_CHECK (*(uint32_t *) 0x00000044)
 //#define HAB_CSF_CHECK  0x89000000
 #define hab_csf_check ((hab_csf_check_t*)HAB_CSF_CHECK)
 
@@ -1194,6 +1194,8 @@ typedef hab_result_t hab_csf_verification_t(uint8_t *, uint32_t);
 //#define HAB_ASSERT_VERIFICATION   0xE7FF5FFF
 #define hab_csf_verification 	((hab_csf_verification_t*)HAB_ASSERT_VERIFICATION)
 
+
+//#define hab_rvt_report_event  ((hab_rvt_report_event_t*)HAB_RVT_REPORT_EVENT)
 #pragma arm
 
 int get_hab_status(void);
@@ -1213,17 +1215,18 @@ int get_hab_status(void)
 	BlockStart=(uint32_t*)HAB_CSF_CHECK;
 	BlockByteSize=0;
 
-	printf("\n\rHAB: Content: Addr Check: 0x%08X.\n\r",HAB_CSF_CHECK);
-	printf("HAB: Content: Addr Check: 0x%08X.\n\r",BlockStart);
-	printf("HAB: Content: Addr Check: 0x%08X.\n\r",*BlockStart);
+#pragma thumb
+	printf("\n\rHAB: Thumb: Content: Addr Check: 0x%08X.\n\r",HAB_CSF_CHECK);
+	printf("\n\rHAB: Thumb: Content: Addr Veri: 0x%08X.\n\r" ,HAB_ASSERT_VERIFICATION);
+#pragma arm
+	printf("\n\rHAB: ARM: Content: Addr Check: 0x%08X.\n\r",HAB_CSF_CHECK);
+	printf("\n\rHAB: ARM: Content: Addr Veri: 0x%08X.\n\r" ,HAB_ASSERT_VERIFICATION);
 
-
-	printf("\n\rHAB: Content: Addr Veri: 0x%08X.\n\r" ,HAB_ASSERT_VERIFICATION);
-//	printf("HAB: Content: Addr Veri: 0x%08X.\n\r" ,(uint32_t)(*HAB_ASSERT_VERIFICATION));
 
 #pragma thumb
 	hab_result=hab_csf_check(csf_count,&csf_list);
 #pragma arm
+
 	printf("\n\rHAB: CHECK: Result Status=0x%08X.\n\r",hab_result.status);
 	printf("HAB: CHECK: Result Type=0x%08X.\n\r",hab_result.type);
 
