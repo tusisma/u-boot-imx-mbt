@@ -1209,9 +1209,12 @@ int get_hab_status(void)
 	BlockByteSize=0;
 
 	printf("\n\rHAB: Content: Addr Check: 0x%08X.\n\r",HAB_CSF_CHECK);
-	printf("HAB: Content: Addr Veri: 0x%08X.\n\r" ,HAB_ASSERT_VERIFICATION);
+	printf("HAB: Content: Addr Check: 0x%08X.\n\r",*HAB_CSF_CHECK);
 
-	printf("HAB: Content: Function ptr: 0x%08X.\n\r" ,hab_csf_check;
+	printf("\n\rHAB: Content: Addr Veri: 0x%08X.\n\r" ,HAB_ASSERT_VERIFICATION);
+	printf("HAB: Content: Addr Veri: 0x%08X.\n\r" ,*HAB_ASSERT_VERIFICATION);
+
+	printf("HAB: Content: Function ptr: 0x%08X.\n\r" ,hab_csf_check);
 
 	hab_result=hab_csf_check(csf_count,&csf_list);
 	printf("\n\rHAB: CHECK: Result Status=0x%08X.\n\r",hab_result.status);
