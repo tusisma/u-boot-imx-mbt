@@ -36,7 +36,7 @@ dcd_node_##i:					\
 	.org	CONFIG_FLASH_HEADER_OFFSET
 app_code_jump_v:	.word	_start
 app_code_code_barker:	.word	CONFIG_FLASH_HEADER_BARKER
-app_code_csf:		.word	0
+app_code_csf:		.word	__hab_data
 dcd_ptr_ptr:		.word	dcd_ptr
 super_root_key:		.word	0
 dcd_ptr:		.word	dcd_array_start
@@ -108,5 +108,5 @@ MXC_DCD_ITEM(54, 4, ESDCTL_BASE_ADDR + ESDCTL_ESDMISC, 0x000ad6d0)
 MXC_DCD_ITEM(55, 4, ESDCTL_BASE_ADDR + ESDCTL_ESDCDLYGD, 0x90000000)
 MXC_DCD_ITEM(56, 4, ESDCTL_BASE_ADDR + ESDCTL_ESDSCR, 0x00000000)
 dcd_data_end:
-image_len:		.word	_end - TEXT_BASE
+image_len:		.word	__hab_data_end - TEXT_BASE
 #endif

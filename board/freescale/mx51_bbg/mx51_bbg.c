@@ -1123,6 +1123,104 @@ int board_late_init(void)
 }
 #endif
 
+
+#define HAB_TYPE_HAB_ENGINEERING 	0x01
+#define HAB_TYPE_HAB_PRODUCT 		0x02
+#define HAB_TYPE_HAB_SEC_DISABLED	0x04
+
+
+typedef enum hab_status{
+
+	//Data specified is out of bounds.
+	HAB_DATA_OUT_OF_BOUNDS = 0x8D,
+	//Error during Assert Verification.
+	HAB_FAIL_ASSERT  = 0x55,
+	//Hash verification failed (including hash verification on certificates). 
+	HAB_FAIL_HASH_VERIFICATION = 0x36,
+	// Certificate parsing failed, or the certificate contained an unsupported key (including unsupported key length).
+	HAB_FAIL_PK_VER = 0x33,
+	// Signature verification failed (including signature verification on certificate). 
+	HAB_FAIL_SIG_VERIFICATION = 0x35,
+	// Super-Root key installation failed. 
+	HAB_FAIL_SUPER_ROOT_INSTALL = 0x47,
+	// Failure not matching any other description. 
+	HAB_FAILURE = 0x39 ,
+	// Command Sequence contains an unsupported command identifier. 
+	HAB_INVALID_CSF_COMMAND CSF = 0x4B,
+	// Absence of expected CSF Header (including mismatched HAB Version). 
+	HAB_INVALID_CSF_HEADER = 0x4E,
+	// length is unsupported. 
+	HAB_INVALID_CSF_LENGTH CSF = 0x4D,
+	// does not match processor TYPE. 
+	HAB_INVALID_CSF_TYPE CSF TYPE = 0x2E,
+	// does not match either processor UID or generic UID. 
+	HAB_INVALID_CSF_UID CSF UID = 0x2D,
+	// Customer/Product code does not match processor Customer/Product code.
+	HAB_INVALID_CSF_CODE CSF = 0x3A,
+	// Key index is either unsupported, or an attempt is made to overwrite the Super-Root key from a CSF command.
+	HAB_INVALID_KEY_INDEX = 0x87,
+	// Successfuloperation completion. 
+	HAB_PASSED  = 0xF0,
+	// unexpectedly not in Secure State. 
+	HAB_SCC_NOT_SECURE SCC = 0x17,
+	// SecureRAM secret key invalid. 
+	HAB_SECURE_RAM_BAD_KEY = 0x1E,
+	// SecureRAM initialization failure. 
+	HAB_SECURE_RAM_CLR_FAIL = 0x1D,
+	// SecureRAM Self Test failure. 
+	HAB_SECURE_RAM_FAIL = 0x1B,
+	// unexpectedly not in Non-Secure State 
+	HAB_SCC_FAIL SCC = 0x53
+}hab_status_t;
+
+
+typedef struct {
+	unsigned char status; /* Status code */
+	unsigned char type;   /* HAB Type from table */
+}hab_result_t;
+
+
+typedef hab_result hab_csf_check_t(uint8_t , uint32_t*);
+typedef hab_result hab_csf_verification_t(uint8_t *, uint32_t);
+
+
+#define HAB_CSF_CHECK (*(unint32_t *) 0x0000008C)
+#define hab_csf_check ((hab_csf_check_t*)HAB_CSF_CHECK)
+
+#define HAB_ASSERT_VERIFICATION (*(unint32_t *) 0x00000090)
+#define hab_csf_verification 	((hab_csf_verification_t*)HAB_ASSERT_VERIFICATION)
+
+int get_hab_status(void);
+int get_hab_status(void)
+{
+	hab_result_t hab_result;
+	uint8_t csf_count=0;
+	uint32_t *csf_list=NULL;
+
+	uint8_t *BlockStart=NULL;
+	uint32_t BlockByteSize=0;
+
+	csf_count=1;
+	csf_list=(unit32_t*)0x90000000;
+
+	BlockStart=(unit32_t*)0x90000000;
+	BlockByteSize=10;
+
+	hab_result=hab_csf_check(csf_count,csf_list);
+	printf("\n\rHAB: CHECK: Result Status=0x%08d.\n\r",hab_result.status);
+	printf("HAB: CHECK: Result Type=0x%08d.\n\r",hab_result.type);
+
+	printf("\n\rHAB: CHECK: Result Status=0x%08d.\n\r",hab_result.status);
+	printf("HAB: CHECK: Result Type=0x%08d.\n\r",hab_result.type);
+
+
+	hab_result=hab_csf_verification(BlockStart,BlockByteSize);
+	printf("\n\rHAB: Verification: Result Status=0x%08d.\n\r",hab_result.status);
+	printf("HAB: Verification: Result Type=0x%08d.\n\r",hab_result.type);
+
+	printf("\n\rHAB: Verification: Result Status=0x%08d.\n\r",hab_result.status);
+	printf("HAB: Verification: Result Type=0x%08d.\n\r",hab_result.type);
+}
 int checkboard(void)
 {
 	printf("Board: MX51 BABBAGE ");
@@ -1172,6 +1270,7 @@ int checkboard(void)
 		printf("UNKNOWN\n");
 		break;
 	}
+	get_hab_status();
 	return 0;
 }
 

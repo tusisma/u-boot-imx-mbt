@@ -66,6 +66,19 @@ SECTIONS
 	.u_boot_cmd : { *(.u_boot_cmd) }
 	__u_boot_cmd_end = .;
 
+	/* Reserve this area to store HAB related data such 
+ 	 * CFS commands, certificates and signatures 
+	 */
+	. = TEXT_BASE + 0x2A000;
+	__hab_data = .;
+	- = . + 0x2000;
+	_hab_data_end = .;
+
+	/* Place the __hab_data memory region before the .bss region
+	 * to avoid being over written at runtime and to keep the 
+	 * u-boot binary as small as possible.
+	 */
+
 	. = ALIGN(4);
 	__bss_start = .;
 	.bss : { *(.bss) }
