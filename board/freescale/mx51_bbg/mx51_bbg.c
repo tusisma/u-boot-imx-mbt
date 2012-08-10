@@ -1123,7 +1123,7 @@ int board_late_init(void)
 }
 #endif
 
-#pragma thumb
+
 
 #define HAB_TYPE_HAB_ENGINEERING 	0x01
 #define HAB_TYPE_HAB_PRODUCT 		0x02
@@ -1181,6 +1181,7 @@ typedef struct {
 }hab_result_t;
 
 
+#pragma thumb
 typedef hab_result_t hab_csf_check_t(uint8_t , uint32_t*);
 typedef hab_result_t hab_csf_verification_t(uint8_t *, uint32_t);
 
@@ -1193,11 +1194,13 @@ typedef hab_result_t hab_csf_verification_t(uint8_t *, uint32_t);
 //#define HAB_ASSERT_VERIFICATION   0xE7FF5FFF
 #define hab_csf_verification 	((hab_csf_verification_t*)HAB_ASSERT_VERIFICATION)
 
+#pragma arm
+
 int get_hab_status(void);
 int get_hab_status(void)
 {
 	hab_result_t hab_result;
-#pragma arm
+
 	uint8_t csf_count=0;
 	uint32_t csf_list=0;
 
@@ -1236,7 +1239,7 @@ int get_hab_status(void)
 	printf("HAB: Verification: Result Type=0x%08X.\n\r",hab_result.type);
 	return 0;
 }
-#pragma arm
+
 
 int checkboard(void)
 {
