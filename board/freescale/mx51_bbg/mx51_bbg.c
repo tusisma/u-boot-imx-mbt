@@ -1214,7 +1214,7 @@ int get_hab_status(void)
 	printf("HAB: CHECK: Result Type=0x%08d.\n\r",hab_result.type);
 
 
-	hab_result=hab_csf_verification(BlockStart,BlockByteSize);
+//	hab_result=hab_csf_verification(BlockStart,BlockByteSize);
 	printf("\n\rHAB: Verification: Result Status=0x%08d.\n\r",hab_result.status);
 	printf("HAB: Verification: Result Type=0x%08d.\n\r",hab_result.type);
 
