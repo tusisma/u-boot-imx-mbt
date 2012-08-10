@@ -1146,23 +1146,23 @@ typedef enum hab_status{
 	// Failure not matching any other description. 
 	HAB_FAILURE = 0x39 ,
 	// Command Sequence contains an unsupported command identifier. 
-	HAB_INVALID_CSF_COMMAND CSF = 0x4B,
+	HAB_INVALID_CSF_COMMAND = 0x4B,
 	// Absence of expected CSF Header (including mismatched HAB Version). 
 	HAB_INVALID_CSF_HEADER = 0x4E,
 	// length is unsupported. 
-	HAB_INVALID_CSF_LENGTH CSF = 0x4D,
+	HAB_INVALID_CSF_LENGTH  = 0x4D,
 	// does not match processor TYPE. 
-	HAB_INVALID_CSF_TYPE CSF TYPE = 0x2E,
+	HAB_INVALID_CSF_TYPE  = 0x2E,
 	// does not match either processor UID or generic UID. 
-	HAB_INVALID_CSF_UID CSF UID = 0x2D,
+	HAB_INVALID_CSF_UID= 0x2D,
 	// Customer/Product code does not match processor Customer/Product code.
-	HAB_INVALID_CSF_CODE CSF = 0x3A,
+	HAB_INVALID_CSF_CODE = 0x3A,
 	// Key index is either unsupported, or an attempt is made to overwrite the Super-Root key from a CSF command.
 	HAB_INVALID_KEY_INDEX = 0x87,
 	// Successfuloperation completion. 
 	HAB_PASSED  = 0xF0,
 	// unexpectedly not in Secure State. 
-	HAB_SCC_NOT_SECURE SCC = 0x17,
+	HAB_SCC_NOT_SECURE = 0x17,
 	// SecureRAM secret key invalid. 
 	HAB_SECURE_RAM_BAD_KEY = 0x1E,
 	// SecureRAM initialization failure. 
@@ -1170,7 +1170,7 @@ typedef enum hab_status{
 	// SecureRAM Self Test failure. 
 	HAB_SECURE_RAM_FAIL = 0x1B,
 	// unexpectedly not in Non-Secure State 
-	HAB_SCC_FAIL SCC = 0x53
+	HAB_SCC_FAIL = 0x53
 }hab_status_t;
 
 
