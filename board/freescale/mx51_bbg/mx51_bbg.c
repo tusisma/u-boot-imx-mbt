@@ -1271,7 +1271,8 @@ int checkboard(void)
 		printf("UNKNOWN\n");
 		break;
 	}
-	get_hab_status();
+	printf("Calling HAB\n");
+	//get_hab_status();
 	return 0;
 }
 
