@@ -71,8 +71,8 @@ SECTIONS
 	 */
 	. = TEXT_BASE + 0x2A000;
 	__hab_data = .;
-	- = . + 0x2000;
-	_hab_data_end = .;
+	. = . + 0x2000;
+	__hab_data_end = .;
 
 	/* Place the __hab_data memory region before the .bss region
 	 * to avoid being over written at runtime and to keep the 
