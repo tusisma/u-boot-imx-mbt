@@ -1197,6 +1197,7 @@ int get_hab_status(void);
 int get_hab_status(void)
 {
 	hab_result_t hab_result;
+#pragma arm
 	uint8_t csf_count=0;
 	uint32_t csf_list=0;
 
@@ -1217,10 +1218,9 @@ int get_hab_status(void)
 	printf("\n\rHAB: Content: Addr Veri: 0x%08X.\n\r" ,HAB_ASSERT_VERIFICATION);
 //	printf("HAB: Content: Addr Veri: 0x%08X.\n\r" ,(uint32_t)(*HAB_ASSERT_VERIFICATION));
 
-	printf("HAB: Content: Function ptr: 0x%08X.\n\r" ,hab_csf_check);
-
+#pragma thumb
 	hab_result=hab_csf_check(csf_count,&csf_list);
-
+#pragma arm
 	printf("\n\rHAB: CHECK: Result Status=0x%08X.\n\r",hab_result.status);
 	printf("HAB: CHECK: Result Type=0x%08X.\n\r",hab_result.type);
 
