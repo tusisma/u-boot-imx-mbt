@@ -69,10 +69,11 @@ SECTIONS
 	/* Reserve this area to store HAB related data such 
  	 * CFS commands, certificates and signatures 
 	 */
-	. = TEXT_BASE + 0x2A000;
+	/*. = TEXT_BASE + 0x2A000;
 	__hab_data = .;
 	. = . + 0x2000;
 	__hab_data_end = .;
+*/
 
 
 	/* Place the __hab_data memory region before the .bss region
