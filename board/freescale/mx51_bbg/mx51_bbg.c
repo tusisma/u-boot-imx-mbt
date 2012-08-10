@@ -1123,7 +1123,6 @@ int board_late_init(void)
 }
 #endif
 
-
 #define HAB_TYPE_HAB_ENGINEERING 	0x01
 #define HAB_TYPE_HAB_PRODUCT 		0x02
 #define HAB_TYPE_HAB_SEC_DISABLED	0x04
@@ -1184,7 +1183,7 @@ typedef hab_result_t hab_csf_check_t(uint8_t , uint32_t*);
 typedef hab_result_t hab_csf_verification_t(uint8_t *, uint32_t);
 
 
-//#define HAB_CSF_CHECK (*(uint32_t *) 0x000000A4)
+#define HAB_CSF_CHECK (*(uint32_t *) 0x000000A4)
 #define HAB_CSF_CHECK  0x89000000
 #define hab_csf_check ((hab_csf_check_t*)HAB_CSF_CHECK)
 
@@ -1209,14 +1208,16 @@ int get_hab_status(void)
 	BlockByteSize=0;
 
 	printf("\n\rHAB: Content: Addr Check: 0x%08X.\n\r",HAB_CSF_CHECK);
-	printf("HAB: Content: Addr Check: 0x%08X.\n\r",*HAB_CSF_CHECK);
+	printf("HAB: Content: Addr Check: 0x%08X.\n\r",(*(uint32_t *) HAB_CSF_CHECK));
+
 
 	printf("\n\rHAB: Content: Addr Veri: 0x%08X.\n\r" ,HAB_ASSERT_VERIFICATION);
-	printf("HAB: Content: Addr Veri: 0x%08X.\n\r" ,*HAB_ASSERT_VERIFICATION);
+//	printf("HAB: Content: Addr Veri: 0x%08X.\n\r" ,(uint32_t)(*HAB_ASSERT_VERIFICATION));
 
 	printf("HAB: Content: Function ptr: 0x%08X.\n\r" ,hab_csf_check);
 
 	hab_result=hab_csf_check(csf_count,&csf_list);
+
 	printf("\n\rHAB: CHECK: Result Status=0x%08X.\n\r",hab_result.status);
 	printf("HAB: CHECK: Result Type=0x%08X.\n\r",hab_result.type);
 
@@ -1232,6 +1233,8 @@ int get_hab_status(void)
 	printf("HAB: Verification: Result Type=0x%08X.\n\r",hab_result.type);
 	return 0;
 }
+#pragma arm
+
 int checkboard(void)
 {
 	printf("Board: MX51 BABBAGE ");
