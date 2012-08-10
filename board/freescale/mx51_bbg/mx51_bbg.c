@@ -1185,7 +1185,7 @@ typedef hab_result_t hab_csf_verification_t(uint8_t *, uint32_t);
 
 
 #define HAB_CSF_CHECK (*(uint32_t *) 0x000000A4)
-#define hab_csf_check ((hab_csf_check_t*)HAB_CSF_CHECK)
+#define hab_csf_check ((hab_csf_check_t*)*HAB_CSF_CHECK)
 
 #define HAB_ASSERT_VERIFICATION (*(uint32_t *) 0x000000A8)
 #define hab_csf_verification 	((hab_csf_verification_t*)HAB_ASSERT_VERIFICATION)
@@ -1205,6 +1205,10 @@ int get_hab_status(void)
 
 	BlockStart=(uint32_t*)0x90000000;
 	BlockByteSize=0;
+
+	printf("\n\rHAB: Content: Addr Check: 0x%08d.\n\r",HAB_CSF_CHECK);
+	printf("\n\rHAB: Content: Addr Veri: 0x%08d.\n\r" ,HAB_ASSERT_VERIFICATION);
+
 
 	hab_result=hab_csf_check(csf_count,csf_list);
 	printf("\n\rHAB: CHECK: Result Status=0x%08d.\n\r",hab_result.status);
