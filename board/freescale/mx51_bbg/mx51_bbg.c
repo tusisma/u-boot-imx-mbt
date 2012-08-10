@@ -1272,7 +1272,7 @@ int checkboard(void)
 		break;
 	}
 	printf("Calling HAB\n");
-	//get_hab_status();
+	get_hab_status();
 	return 0;
 }
 
