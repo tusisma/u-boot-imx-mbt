@@ -1200,11 +1200,11 @@ int get_hab_status(void)
 	uint8_t *BlockStart=NULL;
 	uint32_t BlockByteSize=0;
 
-	csf_count=1;
+	csf_count=0;
 	csf_list=(uint32_t*)0x90000000;
 
 	BlockStart=(uint32_t*)0x90000000;
-	BlockByteSize=10;
+	BlockByteSize=0;
 
 	hab_result=hab_csf_check(csf_count,csf_list);
 	printf("\n\rHAB: CHECK: Result Status=0x%08d.\n\r",hab_result.status);
