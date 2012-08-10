@@ -1206,24 +1206,24 @@ int get_hab_status(void)
 	BlockStart=(uint32_t*)0x90000000;
 	BlockByteSize=0;
 
-	printf("\n\rHAB: Content: Addr Check: 0x%08d.\n\r",HAB_CSF_CHECK);
-	printf("\n\rHAB: Content: Addr Veri: 0x%08d.\n\r" ,HAB_ASSERT_VERIFICATION);
+	printf("\n\rHAB: Content: Addr Check: 0x%08X.\n\r",HAB_CSF_CHECK);
+	printf("\n\rHAB: Content: Addr Veri: 0x%08X.\n\r" ,HAB_ASSERT_VERIFICATION);
 
 
 	hab_result=hab_csf_check(csf_count,csf_list);
-	printf("\n\rHAB: CHECK: Result Status=0x%08d.\n\r",hab_result.status);
-	printf("HAB: CHECK: Result Type=0x%08d.\n\r",hab_result.type);
+	printf("\n\rHAB: CHECK: Result Status=0x%08X.\n\r",hab_result.status);
+	printf("HAB: CHECK: Result Type=0x%08X.\n\r",hab_result.type);
 
-	printf("\n\rHAB: CHECK: Result Status=0x%08d.\n\r",hab_result.status);
-	printf("HAB: CHECK: Result Type=0x%08d.\n\r",hab_result.type);
+	printf("\n\rHAB: CHECK: Result Status=0x%08X.\n\r",hab_result.status);
+	printf("HAB: CHECK: Result Type=0x%08X.\n\r",hab_result.type);
 
 
 //	hab_result=hab_csf_verification(BlockStart,BlockByteSize);
-	printf("\n\rHAB: Verification: Result Status=0x%08d.\n\r",hab_result.status);
-	printf("HAB: Verification: Result Type=0x%08d.\n\r",hab_result.type);
+	printf("\n\rHAB: Verification: Result Status=0x%08X.\n\r",hab_result.status);
+	printf("HAB: Verification: Result Type=0x%08X.\n\r",hab_result.type);
 
-	printf("\n\rHAB: Verification: Result Status=0x%08d.\n\r",hab_result.status);
-	printf("HAB: Verification: Result Type=0x%08d.\n\r",hab_result.type);
+	printf("\n\rHAB: Verification: Result Status=0x%08X.\n\r",hab_result.status);
+	printf("HAB: Verification: Result Type=0x%08X.\n\r",hab_result.type);
 	return 0;
 }
 int checkboard(void)
