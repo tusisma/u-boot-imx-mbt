@@ -1228,6 +1228,10 @@ int get_hab_status(void)
 #else
 	printf("\n\rHAB: CONFIG_ARCH_MMU Not Enabled\n\r");
 	reg = __REG(0x000000A8);
+	printf("\n\rHAB: Addr: 0x000000A8: 0x%08X.\n\r",reg);
+
+	reg = __REG(0x000000A4);
+	printf("\n\rHAB: Addr: 0x000000A4: 0x%08X.\n\r",reg);
 #endif
 
 
