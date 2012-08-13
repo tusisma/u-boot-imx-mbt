@@ -1187,12 +1187,12 @@ typedef hab_result_t hab_csf_check_t(uint8_t , uint32_t*);
 typedef hab_result_t hab_csf_verification_t(uint8_t *, uint32_t);
 
 
-#define HAB_CSF_CHECK (*(uint32_t *) 0x00000044)
-//#define HAB_CSF_CHECK  0x89000000
+//#define HAB_CSF_CHECK (*(uint32_t *) 0x00000044)
+#define HAB_CSF_CHECK  0x0040407B
 #define hab_csf_check ((hab_csf_check_t*)HAB_CSF_CHECK)
 
-#define HAB_ASSERT_VERIFICATION (*(uint32_t *) 0x000000A8)
-//#define HAB_ASSERT_VERIFICATION   0xE7FF5FFF
+//#define HAB_ASSERT_VERIFICATION (*(uint32_t *) 0x000000A8)
+#define HAB_ASSERT_VERIFICATION   0x00404191
 #define hab_csf_verification 	((hab_csf_verification_t*)HAB_ASSERT_VERIFICATION)
 
 
