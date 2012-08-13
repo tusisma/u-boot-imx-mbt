@@ -1206,7 +1206,7 @@ int get_hab_status(void)
 
 	uint8_t csf_count=0;
 	uint32_t csf_list=0;
-
+	int reg=0;
 	uint8_t *BlockStart=NULL;
 	uint32_t BlockByteSize=0;
 	uint32_t addr_local=0;
@@ -1217,8 +1217,19 @@ int get_hab_status(void)
 	BlockStart=(uint32_t*)HAB_CSF_CHECK;
 	BlockByteSize=0;
 
+#ifdef CONFIG_ARCH_MMU
+	printf("\n\rHAB: CONFIG_ARCH_MMU Enabled\n\r");
+	reg = __REG(0x20000000 + 0x000000A8); /* Virtual address */
+#else
+	reg = __REG(0x000000A8);
+#endif
+
+	printf("\n\rHAB: Addr: 0x%08X.\n\r",reg);
+
+
 	addr_local = iomem_to_phys(0x000000A8);
 	printf("\n\rHAB: Addr: 0x%08X.\n\r",addr_local);
+
 
 #pragma thumb
 	printf("\n\rHAB: Thumb: Content: Addr Check: 0x%08X.\n\r",HAB_CSF_CHECK);
