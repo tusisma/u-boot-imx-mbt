@@ -1231,12 +1231,6 @@ int get_hab_status(void)
 #endif
 
 
-
-
-	addr_local = iomem_to_phys(0x000000A8);
-	printf("\n\rHAB: Addr: 0x%08X.\n\r",addr_local);
-
-
 #pragma thumb
 	printf("\n\rHAB: Thumb: Content: Addr Check: 0x%08X.\n\r",HAB_CSF_CHECK);
 	printf("\n\rHAB: Thumb: Content: Addr Veri: 0x%08X.\n\r" ,HAB_ASSERT_VERIFICATION);
@@ -1244,9 +1238,16 @@ int get_hab_status(void)
 	printf("\n\rHAB: ARM: Content: Addr Check: 0x%08X.\n\r",HAB_CSF_CHECK);
 	printf("\n\rHAB: ARM: Content: Addr Veri: 0x%08X.\n\r" ,HAB_ASSERT_VERIFICATION);
 
-
 #pragma thumb
-	hab_result=hab_csf_check(csf_count,&csf_list);
+	hab_result=hab_csf_verification(BlockStart,BlockByteSize);
+	printf("\n\rHAB: Verification: Result Status=0x%08X.\n\r",hab_result.status);
+	printf("HAB: Verification: Result Type=0x%08X.\n\r",hab_result.type);
+
+	printf("\n\rHAB: Verification: Result Status=0x%08X.\n\r",hab_result.status);
+	printf("HAB: Verification: Result Type=0x%08X.\n\r",hab_result.type);
+
+
+	hab_result=hab_csf_check(csf_count,BlockStart);
 #pragma arm
 
 	printf("\n\rHAB: CHECK: Result Status=0x%08X.\n\r",hab_result.status);
@@ -1256,12 +1257,7 @@ int get_hab_status(void)
 	printf("HAB: CHECK: Result Type=0x%08X.\n\r",hab_result.type);
 
 
-//	hab_result=hab_csf_verification(BlockStart,BlockByteSize);
-	printf("\n\rHAB: Verification: Result Status=0x%08X.\n\r",hab_result.status);
-	printf("HAB: Verification: Result Type=0x%08X.\n\r",hab_result.type);
 
-	printf("\n\rHAB: Verification: Result Status=0x%08X.\n\r",hab_result.status);
-	printf("HAB: Verification: Result Type=0x%08X.\n\r",hab_result.type);
 	return 0;
 }
 
