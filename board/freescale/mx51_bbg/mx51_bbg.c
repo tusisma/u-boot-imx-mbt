@@ -199,7 +199,8 @@ void board_mmu_init(void)
 {
 	unsigned long ttb_base = PHYS_SDRAM_1 + 0x4000;
 	unsigned long i;
-
+	
+	printf("board_mmu_init\n\r");
 	/*
 	* Set the TTB register
 	*/
@@ -1208,12 +1209,16 @@ int get_hab_status(void)
 
 	uint8_t *BlockStart=NULL;
 	uint32_t BlockByteSize=0;
+	uint32_t addr_local=0;
 
 	csf_count=0;
 	//csf_list=(uint32_t*)0x90000000;
 
 	BlockStart=(uint32_t*)HAB_CSF_CHECK;
 	BlockByteSize=0;
+
+	addr_local = iomem_to_phys(0x000000A8);
+	printf("\n\rHAB: Addr: 0x%08X.\n\r",addr_local);
 
 #pragma thumb
 	printf("\n\rHAB: Thumb: Content: Addr Check: 0x%08X.\n\r",HAB_CSF_CHECK);
