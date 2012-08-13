@@ -200,7 +200,7 @@ void board_mmu_init(void)
 	unsigned long ttb_base = PHYS_SDRAM_1 + 0x4000;
 	unsigned long i;
 	
-	printf("board_mmu_init\n\r");
+//	printf("board_mmu_init\n\r");
 	/*
 	* Set the TTB register
 	*/
