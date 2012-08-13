@@ -1219,12 +1219,18 @@ int get_hab_status(void)
 
 #ifdef CONFIG_ARCH_MMU
 	printf("\n\rHAB: CONFIG_ARCH_MMU Enabled\n\r");
+
+	reg = __REG(0x20000000 + 0x000000A4); /* Virtual address */
+	printf("\n\rHAB: Addr: 0x000000A4:  0x%08X.\n\r",reg);
+
 	reg = __REG(0x20000000 + 0x000000A8); /* Virtual address */
+	printf("\n\rHAB: Addr: 0x000000A8: 0x%08X.\n\r",reg);
 #else
+	printf("\n\rHAB: CONFIG_ARCH_MMU Not Enabled\n\r");
 	reg = __REG(0x000000A8);
 #endif
 
-	printf("\n\rHAB: Addr: 0x%08X.\n\r",reg);
+
 
 
 	addr_local = iomem_to_phys(0x000000A8);
